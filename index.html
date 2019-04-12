@@ -12,7 +12,7 @@
 			SwaggerUIBundle({
 				"domNode": document.body,
 				"url": "https://sandbox.bluebutton.cms.gov/v1/openapi.json",
-				"oauth2RedirectUrl": "https://why.theplatypus.codes/bluebutton-swagger-ui/",
+				"oauth2RedirectUrl": window.location.hash,
 				"requestInterceptor": (req) => {
 					params = new URLSearchParams(window.location.hash.substr(1))
 					token = params.get("access_token")
