@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>BlueButton API Swagger UI</title>
+
+		<script src="https://unpkg.com/swagger-ui-dist@3/swagger-ui-bundle.js"></script>
+		<link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@3.22.0/swagger-ui.css">
+	</head>
+	<body>
+		<script>
+			SwaggerUIBundle({
+				"domNode": document.body,
+				"url": "https://sandbox.bluebutton.cms.gov/v1/openapi.json",
+				"oauth2RedirectUrl": "http://localhost:8080/",
+				"requestInterceptor": (req) => {
+					params = new URLSearchParams(window.location.hash.substr(1))
+					token = params.get("access_token")
+					if (token !== null) {
+						req.headers.Authorization = "Bearer " + token
+					}
+					return req
+				},
+			}).initOAuth({
+				"clientId": (new URL(window.location.href)).searchParams.get("client_id"),
+			})
+		</script>
+	</body>
+</html>
